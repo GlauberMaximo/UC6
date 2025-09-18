@@ -57,3 +57,43 @@ create table comivenda(
     n_qtdeivenda int,
     n_descivenda float(10,2)
 );
+
+-- Criação das constraints de chave estrangeira
+
+alter table comvenda 
+add constraint fk_comprodu_comforne foreign key(n_numeforne) references comforne(n_numeforne)
+on delete no action on update no action;
+
+alter table comvenda
+add constraint fk_comprodu_comvende foreign key(n_numevende) references comvende(n_numevende)
+on delete no action on update no action;
+
+alter table comvenda
+add constraint fk_comvenda_comclien foreign key(n_numeclien) references comclien(n_numeclien)
+on delete no action on update no action;
+
+alter table comivenda
+add constraint fk_comivenda_comprodu foreign key(n_numeprodu) references comprodu (n_numeprodu)
+on delete no action on update no action;
+
+alter table comivenda 
+add constraint fk_comivenda_comvenda foreign key(n_numevenda) references comvenda(n_numevenda)
+on delete no action on update no action;
+
+-- alterando as tabelas
+
+alter table comclien add column c_cidaclien varchar(50);
+
+alter table comclien add column c_estclien varchar(50);
+-- criação do campo c_estclien de forma errada, droparemos arrumaremos essa parte
+alter table comclien drop column c_estclien;
+
+alter table comclien add column c_estaclien varchar(50);
+-- alteração do tipo de dado
+alter table comclien modify column c_estaclien int;
+-- alteração do tipo de dado
+alter table comclien modify column c_estaclien varchar(100);
+
+-- excluindo(dropando) as tabelas
+
+drop table comvendas;
